@@ -1,21 +1,58 @@
-import { Fragment, useState, FC } from 'react';
+import { Fragment, useState, useEffect, FC } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import { firestore } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
-const locations = [
-  { id: 1, name: 'Paris' },
-  { id: 2, name: 'New York' },
-  { id: 3, name: 'London' },
-  { id: 4, name: 'Bangkok' },
-  { id: 5, name: 'Dubai' },
-  { id: 6, name: 'Hong kong' },
-];
+// const locations = [ // locations -> collection
+//   { id: 1, name: 'Paris' }, // row -> document
+//   { id: 2, name: 'New York' }, // row -> document
+//   { id: 3, name: 'London' }, // row -> document
+//   { id: 4, name: 'Bangkok' },
+//   { id: 5, name: 'Dubai' },
+//   { id: 6, name: 'Hong kong' },
+//   { id: 7, name: 'Kathmandu' },
+// ];
+
+interface Location {
+  id: number;
+  name: string;
+}
 
 const Search: FC = () => {
-  const [selected, setSelected] = useState({
+  const [selected, setSelected] = useState<Location>({
+    id: 0,
     name: 'Select Location',
   });
   const [query, setQuery] = useState('');
+  const [locations, setLocations] = useState<Location[]>([]);
+
+  useEffect(() => {
+    // from the `locations` collection of the firestore database get me the ref.
+    const locationsRef = collection(firestore, 'locations'); // we need locations data
+    // get all the docs from `locationsRef`
+    getDocs(locationsRef).then((data) => {
+      // getting the data
+      /*
+        [{
+          meta: ....,
+          otherProps ....,
+          data() {
+            return actualData;
+          }
+        }, {
+          meta: ...,
+          otherProps: .....,
+          data() {
+            return actualData
+          }
+        }]
+
+      */
+      const locationsData = data.docs.map((doc) => doc.data());
+      setLocations(locationsData as any);
+    });
+  }, []);
 
   const filteredLocations =
     query === ''
