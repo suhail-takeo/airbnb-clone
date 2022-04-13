@@ -1,14 +1,18 @@
-import { FC } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { FC, useState, useEffect } from 'react';
+import { firestore } from '../firebase';
+import LocationCard from './LocationCard';
+import { Hotel } from '../types';
 
 const featuredLocations = [
   {
-    id: '1',
+    id: '1', // to uniquely identify
     image:
       'https://villasnorthbali.com/wp-content/uploads/2020/01/5777fd4bfa26ea1a0e2250f55526ba19-1.jpg',
-    name: 'Moratorium',
-    location: 'Bali',
-    rating: 4.5,
-    price: 40,
+    name: 'Moratorium', // hotel name
+    location: 'Bali', // city
+    rating: 4.5, // average rating
+    price: 40, // price per day
   },
   {
     id: '2',
@@ -48,10 +52,34 @@ const featuredLocations = [
 ];
 
 const FeaturedLocations: FC = () => {
+  const [hotels, setHotels] = useState<Hotel[]>([]);
+
+  useEffect(() => {
+    const hotelsRef = collection(firestore, 'hotels');
+    getDocs(hotelsRef).then((data) => {
+      const hotelsData = data.docs.map((doc) => doc.data());
+      setHotels(hotelsData as any);
+    });
+  }, []);
+
   return (
     <div className="p-4">
       <h4 className="font-bold text-2xl mb-4">Featured Locations</h4>
-      <div className="flex">{/* Locations card */}</div>
+      <div className="flex">
+        {hotels.map((hotel) => {
+          return (
+            <LocationCard
+              key={hotel.id}
+              id={hotel.id}
+              image={hotel.image}
+              location={hotel.location}
+              name={hotel.name}
+              price={hotel.price}
+              rating={hotel.rating}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };
