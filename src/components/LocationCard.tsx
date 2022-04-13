@@ -1,10 +1,11 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Hotel } from '../types';
 
 const LocationCard: FC<Hotel> = (props) => {
   return (
     <div className="w-1/4 bg-white shadow-md rounded-md mr-4">
-      <a href="#">
+      <Link to={`/hotel-detail/${props.id}`}>
         <img
           src={props.image}
           className="w-full h-52 object-cover"
@@ -23,7 +24,7 @@ const LocationCard: FC<Hotel> = (props) => {
             {props.location}
           </h4>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

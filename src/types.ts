@@ -5,4 +5,5 @@ export interface Hotel {
   location: string;
   rating: number;
   price: number;
+  description?: string;
 }
