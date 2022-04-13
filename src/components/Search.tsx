@@ -63,6 +63,7 @@ const Search: FC = () => {
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, '')),
         );
+
   return (
     <div className="w-72">
       <Combobox value={selected} onChange={setSelected}>
