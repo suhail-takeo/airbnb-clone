@@ -8,7 +8,6 @@ import Popular from '../components/Popular';
 const HomePage: FC = () => {
   return (
     <div>
-      <Header />
       <Hero />
       <FeaturedLocations />
       <Popular />

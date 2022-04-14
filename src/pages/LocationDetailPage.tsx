@@ -31,7 +31,6 @@ const LocationDetailPage: React.FC = () => {
 
   return (
     <div>
-      <Header />
       <img
         src={hotel?.image}
         alt="detail"
