@@ -3,6 +3,7 @@ import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
 import { firestore } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 // const locations = [ // locations -> collection
 //   { id: 1, name: 'Paris' }, // row -> document
@@ -26,6 +27,7 @@ const Search: FC = () => {
   });
   const [query, setQuery] = useState('');
   const [locations, setLocations] = useState<Location[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // from the `locations` collection of the firestore database get me the ref.
@@ -54,6 +56,10 @@ const Search: FC = () => {
     });
   }, []);
 
+  const search = () => {
+    navigate(`/hotels?city=${selected.name}`);
+  };
+
   const filteredLocations =
     query === ''
       ? locations
@@ -65,7 +71,7 @@ const Search: FC = () => {
         );
 
   return (
-    <div className="w-72">
+    <div className="w-72 flex items-center">
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <div className="relative w-full text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-teal-300 focus-visible:ring-offset-2 sm:text-sm overflow-hidden">
@@ -131,6 +137,13 @@ const Search: FC = () => {
           </Transition>
         </div>
       </Combobox>
+
+      <button
+        onClick={search}
+        className="text-xs border-2 ml-2 text-white bg-blue-500 border-blue-500 rounded-md px-4 py-1.5"
+      >
+        Search
+      </button>
     </div>
   );
 };
