@@ -74,16 +74,10 @@ const RegisterPage: FC = () => {
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Register to your account
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
-              Or{' '}
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                start your 14-day free trial
-              </a>
-            </p>
           </div>
+          {errorMessage !== '' ? (
+            <p className="text-red-500">{errorMessage}</p>
+          ) : null}
           <form className="mt-8 space-y-6" onSubmit={register}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">

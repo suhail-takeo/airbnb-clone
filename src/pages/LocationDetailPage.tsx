@@ -1,7 +1,6 @@
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Header from '../components/Header';
 import { firestore } from '../firebase';
 import { Hotel } from '../types';
 
