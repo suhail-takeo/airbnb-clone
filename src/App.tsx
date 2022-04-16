@@ -1,6 +1,7 @@
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import BookingsPage from './pages/BookingsPage';
 import HomePage from './pages/HomePage';
 import HotelsPage from './pages/HotelsPage';
 import LocationDetailPage from './pages/LocationDetailPage';
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/hotel-detail/:hotelId" element={<LocationDetailPage />} />
         <Route path="/hotels" element={<HotelsPage />} />
+        <Route path="/bookings" element={<BookingsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>

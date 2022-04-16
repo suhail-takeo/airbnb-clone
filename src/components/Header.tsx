@@ -47,6 +47,12 @@ const Header: FC = () => {
         </Link>
       ) : (
         <div className="flex items-center justify-between">
+          <Link
+            to="/bookings"
+            className="mr-2 text-blue-500 text-sm hover:underline"
+          >
+            My Bookings
+          </Link>
           <p className="font-bold mr-4">{displayName}</p>
           <button
             onClick={logOut}

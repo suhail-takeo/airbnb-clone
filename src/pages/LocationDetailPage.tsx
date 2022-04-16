@@ -16,9 +16,17 @@ type LocationDetailPageParams = {
 /*
   - Booking Model
     id: auto generated
-    user: John Doe
+    user: {
+      id
+      name
+    }
     days: 3
-    hotel: Burj Al Arab
+    hotel: {
+      id
+      name
+      image
+    }
+    bookedOn
 */
 
 const noOfDays = [1, 2, 3, 4, 5];
@@ -67,7 +75,9 @@ const LocationDetailPage: React.FC = () => {
           hotel: {
             id: hotel?.id,
             name: hotel?.name,
+            image: hotel?.image,
           },
+          bookedOn: new Date(),
         });
 
         toast.success('Hotel booked successfully!');
