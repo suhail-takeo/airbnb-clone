@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
@@ -14,6 +15,7 @@ import RegisterPage from './pages/RegisterPage';
 function App() {
   return (
     <BrowserRouter>
+      <Toaster />
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
